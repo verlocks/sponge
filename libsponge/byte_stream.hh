@@ -1,8 +1,8 @@
 #ifndef SPONGE_LIBSPONGE_BYTE_STREAM_HH
 #define SPONGE_LIBSPONGE_BYTE_STREAM_HH
 
-#include <queue>
 #include <string>
+#include <queue>
 
 //! \brief An in-order byte stream.
 
@@ -12,7 +12,7 @@
 class ByteStream {
   private:
     // Your code here -- add private members as necessary.
-
+    
     // Hint: This doesn't need to be a sophisticated data structure at
     // all, but if any of your tests are taking longer than a second,
     // that's a sign that you probably want to keep exploring

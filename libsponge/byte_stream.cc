@@ -14,7 +14,7 @@ void DUMMY_CODE(Targs &&... /* unused */) {}
 
 using namespace std;
 
-ByteStream::ByteStream(const size_t capacity) :  _buffer(), _capacity(capacity) {
+ByteStream::ByteStream(const size_t capacity) : _buffer(), _capacity(capacity) {
     if (capacity == 0) {
         throw runtime_error("invalid capacity:" + to_string(capacity));
     }
@@ -34,7 +34,7 @@ string ByteStream::peek_output(const size_t len) const {
 }
 
 //! \param[in] len bytes will be removed from the output side of the buffer
-void ByteStream::pop_output(const size_t len) { 
+void ByteStream::pop_output(const size_t len) {
     _read_count += min(len, _buffer.size());
     _buffer.erase(0, len);
 }
