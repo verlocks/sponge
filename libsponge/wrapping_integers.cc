@@ -31,11 +31,14 @@ WrappingInt32 wrap(uint64_t n, WrappingInt32 isn) {
 //! and the other stream runs from the remote TCPSender to the local TCPReceiver and
 //! has a different ISN.
 uint64_t unwrap(WrappingInt32 n, WrappingInt32 isn, uint64_t checkpoint) {
-    uint64_t diff = (n.raw_value() >= isn.raw_value()) ? n.raw_value() - isn.raw_value() :
-                                                         n.raw_value() + (static_cast<uint64_t>(1) << 32) - isn.raw_value();
-    if (diff >= checkpoint) return diff;
+    uint64_t diff = (n.raw_value() >= isn.raw_value())
+                        ? n.raw_value() - isn.raw_value()
+                        : n.raw_value() + (static_cast<uint64_t>(1) << 32) - isn.raw_value();
+    if (diff >= checkpoint)
+        return diff;
     diff = (checkpoint - diff) % (static_cast<uint64_t>(1) << 32);
     uint64_t ret = checkpoint - diff;
-    if (diff > (static_cast<uint64_t>(1) << 31)) ret += static_cast<uint64_t>(1) << 32;
+    if (diff > (static_cast<uint64_t>(1) << 31))
+        ret += static_cast<uint64_t>(1) << 32;
     return ret;
 }

@@ -14,9 +14,7 @@ void DUMMY_CODE(Targs &&... /* unused */) {}
 
 using namespace std;
 
-void StreamReassembler::_next_buffer_head() {
-    _buffer_head = (_buffer_head == _capacity - 1) ? 0 : _buffer_head + 1;
-}
+void StreamReassembler::_next_buffer_head() { _buffer_head = (_buffer_head == _capacity - 1) ? 0 : _buffer_head + 1; }
 
 void StreamReassembler::_push_buffer() {
     while (_mask[_buffer_head] && _output.remaining_capacity() > 0) {
@@ -45,8 +43,8 @@ void StreamReassembler::_write_into_buffer(const string &data, const size_t inde
         _output.end_input();
 }
 
-StreamReassembler::StreamReassembler(const size_t capacity) : _output(capacity), _capacity(capacity), 
-                                                              _buffer(capacity), _mask(capacity, false) {}
+StreamReassembler::StreamReassembler(const size_t capacity)
+    : _output(capacity), _capacity(capacity), _buffer(capacity), _mask(capacity, false) {}
 
 //! \details This function accepts a substring (aka a segment) of bytes,
 //! possibly out-of-order, from the logical stream, and assembles any newly

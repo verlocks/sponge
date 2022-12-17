@@ -22,8 +22,8 @@ class ByteStream {
     std::string _buffer;
     size_t _capacity;
     bool _eof = false;
-    unsigned _read_count = 0;
-    unsigned _write_count = 0;
+    unsigned long _read_count = 0;
+    unsigned long _write_count = 0;
 
   public:
     //! Construct a stream with room for `capacity` bytes.
