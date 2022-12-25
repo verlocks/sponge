@@ -44,7 +44,7 @@ void TCPSender::fill_window() {
             break;
 
         len = _window_size - bytes_sent;
-        payload = Buffer(_stream.read(min(TCPConfig::MAX_PAYLOAD_SIZE, len)));
+        payload = Buffer(move(_stream.read(min(TCPConfig::MAX_PAYLOAD_SIZE, len))));
         bytes_sent += payload.size();
 
         if (bytes_sent < _window_size && _stream.buffer_empty() && _stream.input_ended()) {
@@ -127,5 +127,6 @@ unsigned int TCPSender::consecutive_retransmissions() const { return _consecutiv
 
 void TCPSender::send_empty_segment() {
     TCPSegment segment;
+    segment.header().seqno = next_seqno();
     _segments_out.push(segment);
 }
