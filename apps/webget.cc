@@ -18,7 +18,7 @@ void get_URL(const string &host, const string &path) {
     // the "eof" (end of file).
 
     const Address addr(host, "http");
-    CS144TCPSocket sock;
+    FullStackSocket sock;
     string mesg, recv;
 
     sock.connect(addr);

@@ -5,8 +5,10 @@
 #include "tcp_over_ip.hh"
 #include "tun.hh"
 
+#include <list>
 #include <optional>
 #include <queue>
+#include <unordered_map>
 
 //! \brief A "network interface" that connects IP (the internet layer, or network layer)
 //! with Ethernet (the network access layer, or link layer).
@@ -31,6 +33,25 @@
 //! and learns or replies as necessary.
 class NetworkInterface {
   private:
+    static constexpr size_t ARP_ENTRY_DEFAULT_TTL = 30 * 1000;
+    static constexpr size_t ARP_REQUEST_DEFAULT_TTL = 5 * 1000;
+
+    //! ARP entry in ARP table.
+    //! It includes Ethernet address and TTL.
+    struct ARPEntry {
+        EthernetAddress eth_address;
+        size_t ttl;
+    };
+
+    //! The ARP table of the interface.
+    std::unordered_map<uint32_t, ARPEntry> _arp_table{};
+
+    //! The arp response that waiting reply.
+    std::unordered_map<uint32_t, size_t> _waiting_arp_request_map{};
+
+    //! The datagrams that waiting to send.
+    std::list<std::pair<Address, InternetDatagram>> _waiting_datagrams{};
+
     //! Ethernet (known as hardware, network-access-layer, or link-layer) address of the interface
     EthernetAddress _ethernet_address;
 
